@@ -511,7 +511,7 @@ with c1:
         texto = f"""
 ```
 
-🍕 {sabor}
+ {sabor}
 
 📦 {len(itens)} pedidos
 
