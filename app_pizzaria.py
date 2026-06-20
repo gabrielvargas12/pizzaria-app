@@ -1,89 +1,50 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
 from datetime import datetime
 
 st.set_page_config(
-    page_title="Pizza Control",
+    page_title="Pizzaria",
     layout="wide"
 )
 
-st.markdown("""
-<style>
+# LOGIN
+USUARIO = "gilvan"
+SENHA = "gilvan2008"
 
-.stApp{
-background:#0f1117;
-color:white;
-}
+if "logado" not in st.session_state:
+    st.session_state.logado = False
 
-.card{
-background:#181c25;
-padding:20px;
-border-radius:18px;
-margin-bottom:10px;
-}
+if not st.session_state.logado:
 
-.block-container{
-padding-top:1rem;
-}
+    st.title("🔐 Login")
 
-</style>
-""",unsafe_allow_html=True)
+    usuario = st.text_input("Usuário")
+    senha = st.text_input(
+        "Senha",
+        type="password"
+    )
 
-USUARIO="gilvan"
-SENHA="gilvan2008"
+    if st.button("Entrar"):
 
-if "login" not in st.session_state:
-    st.session_state.login=False
-
-if "pedidos" not in st.session_state:
-    st.session_state.pedidos=[]
-
-if not st.session_state.login:
-
-    c1,c2,c3=st.columns([1,1,1])
-
-    with c2:
-
-        st.markdown("# 🍕 Pizza Control")
-
-        user=st.text_input(
-            "Usuário"
-        )
-
-        senha=st.text_input(
-            "Senha",
-            type="password"
-        )
-
-        if st.button(
-            "ENTRAR",
-            use_container_width=True
+        if (
+            usuario == USUARIO and
+            senha == SENHA
         ):
+            st.session_state.logado = True
+            st.rerun()
 
-            if (
-                user==USUARIO
-                and
-                senha==SENHA
-            ):
-
-                st.session_state.login=True
-                st.rerun()
-
-            else:
-                st.error(
-                    "Login inválido"
-                )
+        else:
+            st.error(
+                "Usuário ou senha inválidos"
+            )
 
     st.stop()
 
-abas=st.tabs([
-"🍕 PEDIDOS",
-"👨‍🍳 COZINHA",
-"📊 DASHBOARD"
-])
+# SISTEMA
+if "pedidos" not in st.session_state:
+    st.session_state.pedidos = []
 
-sabores=[
+sabores = [
 "NAPOLITANA",
 "CAMARÃO",
 "MINEIRA",
@@ -96,190 +57,106 @@ sabores=[
 "MEXICANA"
 ]
 
-with abas[0]:
+st.title("🍕 Sistema da Pizzaria")
 
-    st.title("Novo Pedido")
+col1, col2 = st.columns([1,2])
 
-    a,b=st.columns(2)
+with col1:
 
-    mesa=a.selectbox(
+    st.subheader("Novo Pedido")
+
+    mesa = st.selectbox(
         "Mesa",
-        range(1,51)
+        [f"Mesa {i}" for i in range(1,31)]
     )
 
-    pizza=b.selectbox(
+    pizza = st.selectbox(
         "Pizza",
         sabores
     )
 
-    qtd=st.number_input(
+    qtd = st.number_input(
         "Quantidade",
-        1,
-        10
+        min_value=1,
+        value=1
     )
 
-    if st.button(
-        "Enviar para Cozinha"
-    ):
+    if st.button("Enviar Pedido"):
 
-        st.session_state.pedidos.append({
+        st.session_state.pedidos.append(
+            {
+                "Hora":
+                datetime.now().strftime(
+                    "%H:%M"
+                ),
 
-            "hora":
-            datetime.now(),
+                "Mesa": mesa,
 
-            "mesa":
-            mesa,
+                "Pizza": pizza,
 
-            "pizza":
-            pizza,
+                "Quantidade": qtd,
 
-            "qtd":
-            qtd,
-
-            "status":
-            "PREPARANDO"
-
-        })
+                "Status":
+                "Preparando"
+            }
+        )
 
         st.success(
             "Pedido enviado"
         )
 
-with abas[1]:
+with col2:
 
-    st.title(
-        "👨‍🍳 Produção"
-    )
-
-    preparar=[]
-    prontos=[]
-
-    for i,p in enumerate(
-        st.session_state.pedidos
-    ):
-
-        if (
-            p["status"]
-            ==
-            "PREPARANDO"
-        ):
-            preparar.append(
-                (i,p)
-            )
-
-        else:
-            prontos.append(
-                (i,p)
-            )
-
-    c1,c2=st.columns(2)
-
-    with c1:
-
-        st.subheader(
-            "EM PRODUÇÃO"
-        )
-
-        for i,p in preparar:
-
-            st.markdown(
-f"""
-<div class='card'>
-
-Mesa {p['mesa']}
-
-🍕 {p['pizza']}
-
-Qtd {p['qtd']}
-
-</div>
-""",
-unsafe_allow_html=True
-)
-
-            if st.button(
-                f"Finalizar {i}"
-            ):
-
-                st.session_state.pedidos[i][
-                    "status"
-                ]="PRONTO"
-
-                st.rerun()
-
-    with c2:
-
-        st.subheader(
-            "FINALIZADOS"
-        )
-
-        for i,p in prontos:
-
-            st.success(
-f"""
-Mesa {p['mesa']}
-—
-{p['pizza']}
-"""
-            )
-
-with abas[2]:
-
-    st.title(
-        "📊 Dashboard"
+    st.subheader(
+        "👨‍🍳 Cozinha"
     )
 
     if st.session_state.pedidos:
 
-        df=pd.DataFrame(
+        total = sum(
+            p["Quantidade"]
+            for p in
             st.session_state.pedidos
         )
 
-        m1,m2,m3=st.columns(3)
-
-        m1.metric(
-            "Pedidos",
-            len(df)
+        st.metric(
+            "Pedidos Pendentes",
+            total
         )
 
-        m2.metric(
-            "Pizzas",
-            df.qtd.sum()
-        )
+        for i, pedido in enumerate(
+            st.session_state.pedidos
+        ):
 
-        pico=(
-            df["hora"]
-            .dt.hour
-            .mode()[0]
-        )
+            st.write(
+f"""
+🍕 {pedido["Pizza"]}
 
-        m3.metric(
-            "Pico",
-            f"{pico}:00"
-        )
+🪑 {pedido["Mesa"]}
 
-        top=(
-            df
-            .groupby(
-                "pizza"
-            )[
-                "qtd"
-            ]
-            .sum()
-            .reset_index()
-        )
+🔢 {pedido["Quantidade"]}
 
-        fig=px.bar(
-            top,
-            x="pizza",
-            y="qtd",
-            title="Mais Pedidas"
-        )
+🕒 {pedido["Hora"]}
 
-        st.plotly_chart(
-            fig,
-            use_container_width=True
-        )
+📌 {pedido["Status"]}
+"""
+            )
+
+            if (
+                pedido["Status"]
+                !=
+                "Pronto"
+            ):
+
+                if st.button(
+                    f"Concluir {i}"
+                ):
+
+                    st.session_state.pedidos[i][
+                        "Status"
+                    ] = "Pronto"
+
+                    st.rerun()
 
     else:
 
@@ -287,10 +164,10 @@ with abas[2]:
             "Sem pedidos"
         )
 
-if st.sidebar.button(
-"Sair"
+if st.button(
+    "Sair"
 ):
 
-    st.session_state.login=False
+    st.session_state.logado = False
 
     st.rerun()
