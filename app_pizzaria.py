@@ -13,13 +13,32 @@ st.markdown("""
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
+:root{
+
+--texto: black;
+
+}
+
+/* FUNDO ESCURO */
+
+.stApp:has([style*="background:#000"]),
+.stApp:has([style*="background:black"]){
+
+--texto:white;
+
+}
+
 html,
 body,
 [class*="css"]{
 
 font-family:'Poppins',sans-serif;
 
+color:var(--texto)!important;
+
 }
+
+/* FUNDO */
 
 .stApp{
 
@@ -35,76 +54,89 @@ background-attachment:fixed;
 
 }
 
-.stApp::before{
+/* TEXTOS */
 
-content:"";
-
-position:fixed;
-
-top:0;
-
-left:0;
-
-right:0;
-
-bottom:0;
-
-background:rgba(
-15,
-17,
-23,
-0.72
-);
-
-z-index:-1;
-
-}
-
-h1{
-
-color:white;
-
-font-size:42px;
-
-font-weight:700;
-
-}
-
+h1,
 h2,
 h3,
-label{
+h4,
+h5,
+h6,
+p,
+span,
+label,
+div,
+small,
+strong{
 
-color:white!important;
+color:var(--texto)!important;
 
 }
+
+/* SIDEBAR */
+
+[data-testid="stSidebar"]{
+
+background:rgba(
+255,
+255,
+255,
+0.08
+);
+
+}
+
+[data-testid="stSidebar"] *{
+
+color:var(--texto)!important;
+
+}
+
+/* INPUTS */
+
+input,
+textarea,
+select{
+
+color:var(--texto)!important;
+
+}
+
+/* BOTÕES */
 
 div.stButton > button{
 
 height:85px;
 
-font-size:17px;
+font-size:18px;
 
 border-radius:18px;
-
-background:#b22222;
-
-color:white;
-
-border:none;
 
 font-weight:700;
 
 }
 
-div.stButton > button:hover{
+/* DASH */
 
-transform:scale(1.02);
+[data-testid="stMetricValue"],
+
+[data-testid="stMetricLabel"],
+
+table,
+th,
+td{
+
+color:var(--texto)!important;
 
 }
 
-[data-testid="stSidebar"]{
+/* ÍCONES */
 
-background:#141821;
+svg{
+
+fill:var(--texto)!important;
+
+color:var(--texto)!important;
 
 }
 
