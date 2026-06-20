@@ -196,6 +196,40 @@ background:#D32F2F;
 transform:translateY(-2px);
 
 }
+/* ---------- BOTAO MENU LATERAL ---------- */
+
+/* Botão */
+
+[data-testid="stSidebarCollapsedControl"]{
+
+background:transparent !important;
+
+}
+
+/* Ícone */
+
+[data-testid="stSidebarCollapsedControl"] svg{
+
+fill:black !important;
+
+color:black !important;
+
+stroke:black !important;
+
+}
+
+/* Quando estiver sobre sidebar escura */
+
+[data-testid="stSidebar"] 
+[data-testid="stSidebarCollapsedControl"] svg{
+
+fill:white !important;
+
+color:white !important;
+
+stroke:white !important;
+
+}
 
 /* ---------- DASHBOARD ---------- */
 
