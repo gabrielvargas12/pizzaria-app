@@ -478,9 +478,11 @@ elif menu=="👨‍🍳 COZINHA":
 
     c1,c2=st.columns(2)
 
-    with c1:
+   with c1:
 
-st.subheader("🔥 PREPARANDO")
+        st.subheader(
+            "🔥 PREPARANDO"
+        )
 
         grupos={}
 
@@ -560,9 +562,11 @@ f"""
 
     with c2:
 
-st.subheader("✅ PRONTOS")
-        finalizados={}
+        st.subheader(
+            "✅ PRONTOS"
+        )
 
+        finalizados={}
         for i,p in prontos:
 
             sabor=p["pizza"]
