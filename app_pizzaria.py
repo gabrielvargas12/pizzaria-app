@@ -13,28 +13,11 @@ st.markdown("""
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-:root{
-
---texto: black;
-
-}
-
-/* FUNDO ESCURO */
-
-.stApp:has([style*="background:#000"]),
-.stApp:has([style*="background:black"]){
-
---texto:white;
-
-}
-
 html,
 body,
 [class*="css"]{
 
 font-family:'Poppins',sans-serif;
-
-color:var(--texto)!important;
 
 }
 
@@ -54,7 +37,44 @@ background-attachment:fixed;
 
 }
 
-/* TEXTOS */
+/* CAMADA ESCURA */
+
+.stApp::before{
+
+content:"";
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+right:0;
+
+bottom:0;
+
+background:rgba(
+0,
+0,
+0,
+0.80
+);
+
+z-index:-1;
+
+}
+
+/* TEXTO AUTOMÁTICO */
+
+body{
+
+color-scheme:light dark;
+
+}
+
+/* FUNDO ESCURO → TEXTO BRANCO */
+
+@media (prefers-color-scheme: dark){
 
 h1,
 h2,
@@ -65,11 +85,40 @@ h6,
 p,
 span,
 label,
-div,
 small,
-strong{
+strong,
+div,
+svg{
 
-color:var(--texto)!important;
+color:white !important;
+fill:white !important;
+
+}
+
+}
+
+/* FUNDO CLARO → TEXTO PRETO */
+
+@media (prefers-color-scheme: light){
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+label,
+small,
+strong,
+div,
+svg{
+
+color:black !important;
+fill:black !important;
+
+}
 
 }
 
@@ -77,28 +126,7 @@ color:var(--texto)!important;
 
 [data-testid="stSidebar"]{
 
-background:rgba(
-255,
-255,
-255,
-0.08
-);
-
-}
-
-[data-testid="stSidebar"] *{
-
-color:var(--texto)!important;
-
-}
-
-/* INPUTS */
-
-input,
-textarea,
-select{
-
-color:var(--texto)!important;
+background:#141821;
 
 }
 
@@ -108,35 +136,42 @@ div.stButton > button{
 
 height:85px;
 
-font-size:18px;
+font-size:17px;
 
 border-radius:18px;
+
+background:#b22222;
+
+color:white;
+
+border:none;
 
 font-weight:700;
 
 }
 
-/* DASH */
+div.stButton > button:hover{
 
-[data-testid="stMetricValue"],
-
-[data-testid="stMetricLabel"],
-
-table,
-th,
-td{
-
-color:var(--texto)!important;
+transform:scale(1.02);
 
 }
 
-/* ÍCONES */
+/* CAMPOS */
 
-svg{
+input,
+textarea,
+select{
 
-fill:var(--texto)!important;
+color:inherit !important;
 
-color:var(--texto)!important;
+}
+
+/* MÉTRICAS */
+
+[data-testid="stMetricValue"],
+[data-testid="stMetricLabel"]{
+
+color:inherit !important;
 
 }
 
