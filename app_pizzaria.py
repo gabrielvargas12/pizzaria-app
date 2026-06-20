@@ -246,6 +246,52 @@ color:#666 !important;
 
 }
 
+/* ---------- BOTAO ABRIR MENU ---------- */
+
+/* Ícone */
+
+button[kind="header"] svg{
+
+fill:white !important;
+
+color:white !important;
+
+}
+
+/* Quando passar em área clara */
+
+button[kind="header"]{
+
+background:transparent !important;
+
+}
+
+/* Ajuste automático */
+
+@media (prefers-color-scheme: light){
+
+button[kind="header"] svg{
+
+fill:black !important;
+
+color:black !important;
+
+}
+
+}
+
+@media (prefers-color-scheme: dark){
+
+button[kind="header"] svg{
+
+fill:white !important;
+
+color:white !important;
+
+}
+
+}
+
 </style>
 """, unsafe_allow_html=True)
 
