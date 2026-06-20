@@ -9,8 +9,7 @@ st.set_page_config(
 )
 
 st.markdown("""
-
-""", unsafe_allow_html=True)
+<style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
@@ -57,20 +56,23 @@ z-index:-1;
 
 }
 
-/* TITULO */
+/* TITULO PRINCIPAL */
 
-h1 {
+h1{
 
-color: #FFD54F !important;
+color:#FFD54F !important;
 
-font-weight: 700;
+font-weight:700;
 
-text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
+text-shadow:
+2px 2px 8px rgba(
+0,
+0,
+0,
+0.9
+);
 
 }
-
-</style>
-""", unsafe_allow_html=True)
 
 /* SUBTITULOS */
 
@@ -109,6 +111,168 @@ background:#141821;
 color:white !important;
 
 }
+
+/* LOGIN */
+
+.stTextInput input{
+
+background:white !important;
+
+color:black !important;
+
+border-radius:10px;
+
+padding:10px;
+
+}
+
+.stTextInput label{
+
+color:white !important;
+
+}
+
+/* SELECT */
+
+[data-baseweb="select"]{
+
+background:#23262E !important;
+
+border-radius:10px;
+
+}
+
+[data-baseweb="select"] span{
+
+color:white !important;
+
+}
+
+[role="listbox"]{
+
+background:white !important;
+
+}
+
+[role="option"]{
+
+color:black !important;
+
+}
+
+/* BOTÕES */
+
+div.stButton > button{
+
+height:78px;
+
+border-radius:18px;
+
+background:#B22222;
+
+color:white !important;
+
+font-size:17px;
+
+font-weight:700;
+
+border:none;
+
+transition:0.2s;
+
+}
+
+div.stButton > button:hover{
+
+background:#D32F2F;
+
+transform:translateY(-2px);
+
+}
+
+/* DASHBOARD */
+
+[data-testid="stMetricValue"],
+[data-testid="stMetricLabel"]{
+
+color:white !important;
+
+}
+
+/* TABELAS */
+
+table,
+thead,
+tbody,
+th,
+td{
+
+color:white !important;
+
+background:transparent !important;
+
+}
+
+/* ALERTAS */
+
+[data-testid="stAlertContainer"]{
+
+color:white !important;
+
+}
+
+/* ÍCONES */
+
+svg{
+
+fill:white !important;
+
+color:white !important;
+
+}
+
+/* MENU LATERAL ☰ */
+
+button[kind="header"]{
+
+background:transparent !important;
+
+}
+
+/* COR PADRÃO */
+
+button[kind="header"] svg{
+
+fill:black !important;
+
+stroke:black !important;
+
+color:black !important;
+
+}
+
+/* QUANDO MENU ESTIVER ESCURO */
+
+[data-testid="stSidebar"] button[kind="header"] svg{
+
+fill:white !important;
+
+stroke:white !important;
+
+color:white !important;
+
+}
+
+/* PLACEHOLDER */
+
+input::placeholder{
+
+color:#666 !important;
+
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 /* LOGIN */
 
@@ -231,7 +395,6 @@ color:white !important;
 
 }
 
-
 /* ---------- BOTAO MENU ☰ ---------- */
 
 /* Área do botão */
@@ -246,11 +409,11 @@ background:transparent !important;
 
 button[kind="header"] svg{
 
-fill:white !important;
+fill:black !important;
 
-stroke:white !important;
+stroke:black !important;
 
-color:white !important;
+color:black !important;
 
 }
 
@@ -259,11 +422,19 @@ color:white !important;
 [data-testid="stSidebar"][aria-expanded="true"] ~ div 
 button[kind="header"] svg{
 
-fill:black !important;
+fill:white !important;
 
-stroke:black !important;
+stroke:white !important;
 
-color:black !important;
+color:white !important;
+
+}
+
+/* SABORES / TEXTOS DOS BOTOES */
+
+div.stButton button{
+
+color:white !important;
 
 }
 
