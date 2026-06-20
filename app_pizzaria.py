@@ -589,6 +589,7 @@ f"""
 {sabor}
 
 f"✅ {qtd} concluídos"
+)
 """
 )
 
