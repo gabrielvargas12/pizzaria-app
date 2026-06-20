@@ -589,8 +589,7 @@ f"""
 
 f"✅ {qtd} concluídos"
 """
-
-            )
+)
 # DASHBOARD
 
 elif menu=="📊 DASHBOARD":
