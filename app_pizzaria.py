@@ -536,7 +536,7 @@ f"""
 
  {len(itens)} pedidos
 
-🪑 Mesas:
+🪑Mesas:
 {' • '.join(mesas)}
 
 🕒 {' • '.join(horas)}
