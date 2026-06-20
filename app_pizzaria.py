@@ -410,9 +410,10 @@ if menu=="🍕 NOVO PEDIDO":
 
         st.divider()
 
-        st.success(
-            f"Selecionado: {st.session_state.pizza_escolhida}"
-        )
+        st.markdown(
+f"""
+
+ Selecionado: {st.session_state.pizza_escolhida}
 
         mesa=st.selectbox(
             "Mesa",
