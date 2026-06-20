@@ -170,7 +170,7 @@ border-radius:18px;
 
 background:#B22222;
 
-color:white !important;
+color:black !important;
 
 font-size:17px;
 
