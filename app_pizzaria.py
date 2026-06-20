@@ -250,7 +250,7 @@ button[kind="header"] svg{
 
 fill:white !important;
 
-stroke:black !important;
+stroke:white !important;
 
 color:white !important;
 
