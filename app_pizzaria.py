@@ -584,12 +584,14 @@ f"🕒 {' • '.join(horas)}"
 
             st.success(
 
+
 f"""
 {sabor}
 
-f"✅ {qtd} concluídos"
+✅ {qtd} concluídos
 """
 )
+
 # DASHBOARD
 
 elif menu=="📊 DASHBOARD":
