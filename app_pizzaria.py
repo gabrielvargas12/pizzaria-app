@@ -28,7 +28,7 @@ for k,v in [('logado',False),('pedidos',[]),('selecao',None)]:
     if k not in st.session_state:
         st.session_state[k]=v
 
-sabores=["NAPOLITANA","CAMARÃO","CAIPIRA","MINEIRA","MODA DA CASA","STROGONOFF","CALABRESA","PORTUGUESA","FRANGO CATUPIRY","4 QUEIJOS","MEXICANA","MACARRÃO BOLONHESA","MACARRÃO 4 QUEIJOS","MACARRÃO PICANTE","MACARRÃO MODA DA CASA"]
+sabores=["NAPOLITANA","CAMARÃO","CAIPIRA","MINEIRA","MODA DA CASA","STROGONOFF","CALABRESA","PORTUGUESA","FRANGO CATUPIRY","4 QUEIJOS","MEXICANA","🍜MACARRÃO BOLONHESA","🍜MACARRÃO 4 QUEIJOS","🍜MACARRÃO PICANTE","🍜MACARRÃO MODA DA CASA"]
 
 if not st.session_state.logado:
     c1,c2,c3=st.columns([1,1,1])
@@ -57,7 +57,7 @@ if menu=='🍕 NOVO PEDIDO':
 
     if st.session_state.selecao:
         st.success(f'Item selecionado: {st.session_state.selecao}')
-        mesa=st.selectbox('Mesa',range(1,31))
+        mesa=st.selectbox('Mesa',range(1,112))
         if st.button('Enviar para Cozinha'):
             st.session_state.pedidos.append({'pizza':st.session_state.selecao,'mesa':mesa,'hora':datetime.now(),'status':'PREPARANDO'})
             st.session_state.selecao=None
