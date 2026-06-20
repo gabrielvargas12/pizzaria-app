@@ -513,12 +513,12 @@ with c1:
 
  {sabor}
 
-📦 {len(itens)} pedidos
+{len(itens)} pedidos
 
-🪑 Mesas:
+Mesas:
 {' • '.join(mesas)}
 
-🕒 {' • '.join(horas)}
+🕒{' • '.join(horas)}
 """
 
 ```
