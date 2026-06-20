@@ -536,7 +536,7 @@ f"""
 
  {len(itens)} pedidos
 
-🪑Mesas:
+st.subheader("🪑 Mesas:")
 {' • '.join(mesas)}
 
 🕒 {' • '.join(horas)}
