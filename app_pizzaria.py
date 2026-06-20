@@ -558,9 +558,9 @@ with c2:
         texto = f"""
 ```
 
-🍕 {sabor}
+ {sabor}
 
-✅ {qtd} concluídos
+f"✅ {qtd} concluídos"
 """
 
 ```
