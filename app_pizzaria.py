@@ -166,8 +166,8 @@ color:white !important;
 
 }
 
-</style>
-""",unsafe_allow_html=True)
+<style>
+
 /* SOMENTE TITULO PIZZA CONTROL */
 
 h1{
@@ -176,14 +176,13 @@ color:#FFD54F !important;
 
 font-weight:700;
 
-2px 2px 6px rgba(
-0,
-0,
-0,
-0.8
-);
+text-shadow:2px 2px 6px rgba(0,0,0,0.8);
 
 }
+
+</style>
+""",unsafe_allow_html=True)
+
 # LOGIN
 
 USUARIO="gilvan"
