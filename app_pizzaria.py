@@ -261,11 +261,11 @@ color:black !important;
 [data-testid="stSidebar"][aria-expanded="true"] ~ div 
 button[kind="header"] svg{
 
-fill:white !important;
+fill:black !important;
 
-stroke:white !important;
+stroke:black !important;
 
-color:white !important;
+color:black !important;
 
 }
 
