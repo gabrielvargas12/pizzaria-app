@@ -452,31 +452,29 @@ if menu=="🍕 NOVO PEDIDO":
             st.rerun()
 # COZINHA
 
-elif menu=="👨‍🍳 COZINHA":
+# COZINHA
 
-    st.title(
-        "👨‍🍳 Cozinha"
-    )
+elif menu == "👨‍🍳 COZINHA":
 
-    pedidos=st.session_state.pedidos
+```
+st.title
+("👨‍🍳 Cozinha")
 
-    preparando=[
-        (i,p)
-        for i,p in enumerate(
-            pedidos
-        )
-        if p["status"]=="PREPARANDO"
-    ]
+pedidos = st.session_state.pedidos
 
-    prontos=[
-        (i,p)
-        for i,p in enumerate(
-            pedidos
-        )
-        if p["status"]=="PRONTO"
-    ]
+preparando = [
+    (i, p)
+    for i, p in enumerate(pedidos)
+    if p["status"] == "PREPARANDO"
+]
 
-  c1, c2 = st.columns(2)
+prontos = [
+    (i, p)
+    for i, p in enumerate(pedidos)
+    if p["status"] == "PRONTO"
+]
+
+c1, c2 = st.columns(2)
 
 with c1:
 
@@ -555,6 +553,8 @@ with c2:
         st.success(
             f"🍕 {sabor}\n\n✅ {qtd} concluídos"
         )
+```
+
 # DASHBOARD
 
 elif menu=="📊 DASHBOARD":
