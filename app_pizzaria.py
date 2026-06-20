@@ -11,7 +11,9 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* ---------- BASE ---------- */
 
 html,
 body,
@@ -21,7 +23,7 @@ font-family:'Poppins',sans-serif;
 
 }
 
-/* FUNDO */
+/* ---------- FUNDO ---------- */
 
 .stApp{
 
@@ -30,9 +32,7 @@ background-image:url(
 );
 
 background-size:cover;
-
 background-position:center;
-
 background-attachment:fixed;
 
 }
@@ -46,34 +46,62 @@ content:"";
 position:fixed;
 
 top:0;
-
 left:0;
-
 right:0;
-
 bottom:0;
 
 background:rgba(
 0,
 0,
 0,
-0.80
+0.78
 );
 
 z-index:-1;
 
 }
 
-/* TEXTO BRANCO NAS TELAS */
+/* ---------- TITULOS ---------- */
 
-.stApp,
-.stApp *{
+h1{
+
+color:#FFD54F !important;
+
+font-weight:700;
+
+text-shadow:
+2px 2px 8px rgba(
+0,
+0,
+0,
+0.9
+);
+
+}
+
+h2,
+h3,
+h4,
+h5,
+h6{
 
 color:white !important;
 
 }
 
-/* SIDEBAR */
+/* ---------- TEXTO ---------- */
+
+p,
+span,
+label,
+small,
+strong{
+
+color:white !important;
+
+}
+
+/* ---------- SIDEBAR ---------- */
 
 [data-testid="stSidebar"]{
 
@@ -87,47 +115,89 @@ color:white !important;
 
 }
 
-/* BOTÕES */
+/* ---------- LOGIN ---------- */
+
+.stTextInput input{
+
+background:white !important;
+
+color:black !important;
+
+border-radius:10px;
+
+padding:10px;
+
+}
+
+/* LABEL LOGIN */
+
+.stTextInput label{
+
+color:white !important;
+
+}
+
+/* ---------- SELECT ---------- */
+
+[data-baseweb="select"]{
+
+background:#23262E !important;
+
+border-radius:10px;
+
+}
+
+[data-baseweb="select"] span{
+
+color:white !important;
+
+}
+
+/* MENU ABERTO */
+
+[role="listbox"]{
+
+background:white !important;
+
+}
+
+[role="option"]{
+
+color:black !important;
+
+}
+
+/* ---------- BOTOES ---------- */
 
 div.stButton > button{
 
-height:85px;
-
-font-size:17px;
+height:78px;
 
 border-radius:18px;
 
-background:#b22222;
+background:#B22222;
 
 color:white !important;
 
-border:none;
+font-size:17px;
 
 font-weight:700;
 
-}
+border:none;
 
-/* INPUTS */
-
-input,
-textarea,
-select{
-
-background:#222 !important;
-
-color:white !important;
+transition:0.2s;
 
 }
 
-/* SELECT */
+div.stButton > button:hover{
 
-[data-baseweb="select"] *{
+background:#D32F2F;
 
-color:white !important;
+transform:translateY(-2px);
 
 }
 
-/* MÉTRICAS */
+/* ---------- DASHBOARD ---------- */
 
 [data-testid="stMetricValue"],
 [data-testid="stMetricLabel"]{
@@ -136,27 +206,29 @@ color:white !important;
 
 }
 
-/* DASHBOARD */
+/* ---------- TABELAS ---------- */
 
 table,
 thead,
 tbody,
-td,
-th{
+th,
+td{
+
+color:white !important;
+
+background:transparent !important;
+
+}
+
+/* ---------- ALERTAS ---------- */
+
+[data-testid="stAlertContainer"]{
 
 color:white !important;
 
 }
 
-/* ALERTAS */
-
-[data-testid="stAlertContainer"] *{
-
-color:white !important;
-
-}
-
-/* ÍCONES */
+/* ---------- ICONES ---------- */
 
 svg{
 
@@ -166,22 +238,16 @@ color:white !important;
 
 }
 
-<style>
+/* ---------- CAMPOS CLAROS ---------- */
 
-/* SOMENTE TITULO PIZZA CONTROL */
+input::placeholder{
 
-h1{
-
-color:#FFD54F !important;
-
-font-weight:700;
-
-text-shadow:2px 2px 6px rgba(0,0,0,0.8);
+color:#666 !important;
 
 }
 
 </style>
-""",unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # LOGIN
 
