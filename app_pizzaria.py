@@ -64,61 +64,12 @@ z-index:-1;
 
 }
 
-/* TEXTO AUTOMÁTICO */
+/* TEXTO BRANCO NAS TELAS */
 
-body{
-
-color-scheme:light dark;
-
-}
-
-/* FUNDO ESCURO → TEXTO BRANCO */
-
-@media (prefers-color-scheme: dark){
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-span,
-label,
-small,
-strong,
-div,
-svg{
+.stApp,
+.stApp *{
 
 color:white !important;
-fill:white !important;
-
-}
-
-}
-
-/* FUNDO CLARO → TEXTO PRETO */
-
-@media (prefers-color-scheme: light){
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-span,
-label,
-small,
-strong,
-div,
-svg{
-
-color:black !important;
-fill:black !important;
-
-}
 
 }
 
@@ -127,6 +78,12 @@ fill:black !important;
 [data-testid="stSidebar"]{
 
 background:#141821;
+
+}
+
+[data-testid="stSidebar"] *{
+
+color:white !important;
 
 }
 
@@ -142,7 +99,7 @@ border-radius:18px;
 
 background:#b22222;
 
-color:white;
+color:white !important;
 
 border:none;
 
@@ -150,19 +107,23 @@ font-weight:700;
 
 }
 
-div.stButton > button:hover{
-
-transform:scale(1.02);
-
-}
-
-/* CAMPOS */
+/* INPUTS */
 
 input,
 textarea,
 select{
 
-color:inherit !important;
+background:#222 !important;
+
+color:white !important;
+
+}
+
+/* SELECT */
+
+[data-baseweb="select"] *{
+
+color:white !important;
 
 }
 
@@ -171,13 +132,42 @@ color:inherit !important;
 [data-testid="stMetricValue"],
 [data-testid="stMetricLabel"]{
 
-color:inherit !important;
+color:white !important;
+
+}
+
+/* DASHBOARD */
+
+table,
+thead,
+tbody,
+td,
+th{
+
+color:white !important;
+
+}
+
+/* ALERTAS */
+
+[data-testid="stAlertContainer"] *{
+
+color:white !important;
+
+}
+
+/* ÍCONES */
+
+svg{
+
+fill:white !important;
+
+color:white !important;
 
 }
 
 </style>
 """,unsafe_allow_html=True)
-
 # LOGIN
 
 USUARIO="gilvan"
