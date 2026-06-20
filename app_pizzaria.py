@@ -60,21 +60,42 @@ if not st.session_state.logado:
 menu=st.sidebar.radio('MENU',['🍕 NOVO PEDIDO','👨‍🍳 COZINHA','📊 DASHBOARD'])
 
 if menu=='🍕 NOVO PEDIDO':
-    st.title('Escolha o Pedido')
-    cols=4
-    for i in range(0,len(sabores),cols):
-        c=st.columns(min(cols,len(sabores)-i))
-        for col,s in zip(c,sabores[i:i+cols]):
-            with col:
-                if st.button(s,key=s,use_container_width=True):
-                    st.session_state.selecao=s
-    if st.session_state.selecao:
-        st.success(f'Selecionado: {st.session_state.selecao}')
-        mesa=st.selectbox('Mesa',range(1,31))
-        if st.button('Enviar para Cozinha'):
-            st.session_state.pedidos.append({'pizza':st.session_state.selecao,'mesa':mesa,'hora':datetime.now(),'status':'PREPARANDO'})
-            st.rerun()
+    
+ if st.session_state.selecao:
 
+    st.success(
+        f"Selecionado: {st.session_state.selecao}"
+    )
+
+    mesa = st.selectbox(
+        "Mesa",
+        range(1,31)
+    )
+
+    if st.button(
+        "Enviar para Cozinha",
+        use_container_width=True
+    ):
+
+        st.session_state.pedidos.append({
+
+            "pizza":
+            st.session_state.selecao,
+
+            "mesa":
+            mesa,
+
+            "hora":
+            datetime.now(),
+
+            "status":
+            "PREPARANDO"
+
+        })
+
+        st.session_state.selecao = None
+
+        st.rerun()
 elif menu=='👨‍🍳 COZINHA':
     st.title('👨‍🍳 Controle de Pedidos')
     grupos={}
