@@ -1,300 +1,89 @@
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-from datetime import datetime
-
-st.set_page_config(
-    page_title="Pizza Control",
-    layout="wide"
-)
-
-# LOGIN
-
-USUARIO="gilvan"
-SENHA="gilvan2008"
-
-if "logado" not in st.session_state:
-    st.session_state.logado=False
-
-if "pedidos" not in st.session_state:
-    st.session_state.pedidos=[]
-
-if not st.session_state.logado:
-
-    c1,c2,c3=st.columns([1,1,1])
-
-    with c2:
-
-        st.title("🍕 Pizza Control")
-
-        usuario=st.text_input(
-            "Usuário"
-        )
-
-        senha=st.text_input(
-            "Senha",
-            type="password"
-        )
-
-        if st.button(
-            "Entrar",
-            use_container_width=True
-        ):
-
-            if (
-                usuario==USUARIO
-                and
-                senha==SENHA
-            ):
-
-                st.session_state.logado=True
-                st.rerun()
-
-            else:
-
-                st.error(
-                    "Login inválido"
-                )
-
-    st.stop()
-
-menu=st.sidebar.radio(
-    "MENU",
-    [
-        "🍕 NOVO PEDIDO",
-        "👨‍🍳 COZINHA",
-        "📊 DASHBOARD"
-    ]
-)
-
-sabores=[
-
-"NAPOLITANA",
-"CAMARÃO",
-"CAIPIRA",
-"MINEIRA",
-"MODA DA CASA",
-"STROGONOFF",
-"CALABRESA",
-"PORTUGUESA",
-"FRANGO CATUPIRY",
-"4 QUEIJOS",
-"MEXICANA"
-
-]
-
 # PEDIDOS
 
 if menu=="🍕 NOVO PEDIDO":
 
-    st.title("Novo Pedido")
+    st.title("🍕 Novo Pedido")
 
-    c1,c2=st.columns(2)
+    if "pizza_escolhida" not in st.session_state:
+        st.session_state.pizza_escolhida=None
 
-    mesa=c1.selectbox(
-        "Mesa",
-        range(1,31)
+    st.subheader(
+        "Escolha a Pizza"
     )
 
-    pizza=c2.selectbox(
-        "Pizza",
-        sabores
-    )
+    colunas=3
 
-    if st.button(
-        "Enviar para Cozinha"
+    for i in range(
+        0,
+        len(sabores),
+        colunas
     ):
 
-        st.session_state.pedidos.append({
-
-            "hora":
-            datetime.now(),
-
-            "mesa":
-            mesa,
-
-            "pizza":
-            pizza,
-
-            "status":
-            "PREPARANDO"
-
-        })
-
-        st.success(
-            "Pedido enviado"
+        cols=st.columns(
+            colunas
         )
 
-# COZINHA
+        grupo=sabores[
+            i:
+            i+colunas
+        ]
 
-elif menu=="👨‍🍳 COZINHA":
+        for c,sabor in zip(
+            cols,
+            grupo
+        ):
 
-    st.title(
-        "Painel Cozinha"
-    )
-
-    preparando=[]
-    prontos=[]
-
-    for i,p in enumerate(
-        st.session_state.pedidos
-    ):
-
-        if p["status"]=="PREPARANDO":
-
-            preparando.append(
-                (i,p)
-            )
-
-        else:
-
-            prontos.append(
-                (i,p)
-            )
-
-    col1,col2=st.columns(2)
-
-    with col1:
-
-        st.subheader(
-            "🔥 PREPARANDO"
-        )
-
-        for i,p in preparando:
-
-            st.info(
-f"""
-🪑 Mesa {p["mesa"]}
-
-🍕 {p["pizza"]}
-
-🕒 {p["hora"].strftime("%H:%M")}
-"""
-            )
-
-            if st.button(
-                f"FINALIZAR {i}"
+            if c.button(
+                sabor,
+                use_container_width=True
             ):
 
-                st.session_state.pedidos[i][
-                    "status"
-                ]="PRONTO"
+                st.session_state.pizza_escolhida=sabor
 
-                st.rerun()
+    if st.session_state.pizza_escolhida:
 
-    with col2:
+        st.divider()
 
-        st.subheader(
-            "✅ PRONTOS"
+        st.success(
+f"""
+🍕 Selecionada:
+{st.session_state.pizza_escolhida}
+"""
         )
 
-        for i,p in prontos:
+        mesa=st.selectbox(
+            "Mesa",
+            range(
+                1,
+                31
+            )
+        )
+
+        if st.button(
+            "Enviar para Cozinha",
+            use_container_width=True
+        ):
+
+            st.session_state.pedidos.append({
+
+                "hora":
+                datetime.now(),
+
+                "mesa":
+                mesa,
+
+                "pizza":
+                st.session_state.pizza_escolhida,
+
+                "status":
+                "PREPARANDO"
+
+            })
+
+            st.session_state.pizza_escolhida=None
 
             st.success(
-f"""
-Mesa {p["mesa"]}
-
-🍕 {p["pizza"]}
-"""
+                "Pedido enviado"
             )
 
-# DASHBOARD
-
-elif menu=="📊 DASHBOARD":
-
-    st.title(
-        "Dashboard"
-    )
-
-    if len(
-        st.session_state.pedidos
-    )>0:
-
-        df=pd.DataFrame(
-            st.session_state.pedidos
-        )
-
-        m1,m2,m3=st.columns(3)
-
-        m1.metric(
-            "Pedidos",
-            len(df)
-        )
-
-        m2.metric(
-            "Prontos",
-
-            (
-                df["status"]
-                ==
-                "PRONTO"
-            ).sum()
-        )
-
-        hora=(
-            df["hora"]
-            .dt.hour
-            .mode()[0]
-        )
-
-        m3.metric(
-            "Hora Pico",
-            f"{hora}:00"
-        )
-
-        st.subheader(
-            "🍕 Mais Pedidas"
-        )
-
-        top=(
-
-            df
-
-            .groupby(
-                "pizza"
-            )
-
-            .size()
-
-            .reset_index(
-                name="pedidos"
-            )
-
-        )
-
-        grafico=px.bar(
-
-            top,
-
-            x="pizza",
-
-            y="pedidos"
-
-        )
-
-        st.plotly_chart(
-            grafico,
-            use_container_width=True
-        )
-
-        st.subheader(
-            "Histórico"
-        )
-
-        st.dataframe(
-            df
-        )
-
-    else:
-
-        st.info(
-            "Sem pedidos"
-        )
-
-if st.sidebar.button(
-    "Sair"
-):
-
-    st.session_state.logado=False
-
-    st.rerun()
+            st.rerun()
