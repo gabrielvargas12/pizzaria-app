@@ -4,30 +4,112 @@ import plotly.express as px
 from datetime import datetime
 
 st.set_page_config(
-    page_title="Pizza Control",
+    page_title="Controle de Pedidos",
     layout="wide"
 )
 
 st.markdown("""
 <style>
 
-.stApp{
-background:#FFFFFF;
-color:black;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+html,
+body,
+[class*="css"]{
+
+font-family:'Poppins',sans-serif;
+
 }
 
-.block-container{
-padding-top:1rem;
+.stApp{
+
+background-image:url(
+"https://images.unsplash.com/photo-1513104890138-7c749659a591"
+);
+
+background-size:cover;
+
+background-position:center;
+
+background-attachment:fixed;
+
+}
+
+.stApp::before{
+
+content:"";
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+right:0;
+
+bottom:0;
+
+background:rgba(
+15,
+17,
+23,
+0.72
+);
+
+z-index:-1;
+
+}
+
+h1{
+
+color:white;
+
+font-size:42px;
+
+font-weight:700;
+
+}
+
+h2,
+h3,
+label{
+
+color:white!important;
+
 }
 
 div.stButton > button{
-height:80px;
-font-size:18px;
-border-radius:15px;
+
+height:85px;
+
+font-size:17px;
+
+border-radius:18px;
+
+background:#b22222;
+
+color:white;
+
+border:none;
+
+font-weight:700;
+
+}
+
+div.stButton > button:hover{
+
+transform:scale(1.02);
+
+}
+
+[data-testid="stSidebar"]{
+
+background:#141821;
+
 }
 
 </style>
-""", unsafe_allow_html=True)
+""",unsafe_allow_html=True)
 
 # LOGIN
 
@@ -49,7 +131,7 @@ if not st.session_state.logado:
 
     with c2:
 
-        st.title("🍕 Pizza Control")
+        st.title("🍕 Controle de Pedidos ")
 
         usuario=st.text_input(
             "Usuário"
@@ -289,7 +371,7 @@ elif menu=="👨‍🍳 COZINHA":
 f"""
 {sabor}
 
-📦 {len(itens)} pedidos
+ {len(itens)} pedidos
 
 🪑 Mesas:
 {' • '.join(mesas)}
