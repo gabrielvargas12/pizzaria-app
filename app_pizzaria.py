@@ -283,7 +283,7 @@ Mesa {p["mesa"]}
 f"""
 Mesa {p["mesa"]}
 
-🍕 {p["pizza"]}
+ {p["pizza"]}
 """
 
             )
@@ -339,7 +339,7 @@ elif menu=="📊 DASHBOARD":
         )
 
         st.subheader(
-            "🍕 Mais Pedidas"
+            " Mais Pedidas"
         )
 
         top=(
