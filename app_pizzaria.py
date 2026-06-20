@@ -476,119 +476,85 @@ elif menu=="👨‍🍳 COZINHA":
         if p["status"]=="PRONTO"
     ]
 
-    c1,c2=st.columns(2)
+  c1, c2 = st.columns(2)
 
-   with c1:
+with c1:
 
-        st.subheader(
-            "🔥 PREPARANDO"
+    st.markdown(
+        "<h3 style='color:black;'>🔥 PREPARANDO</h3>",
+        unsafe_allow_html=True
+    )
+
+    grupos = {}
+
+    for i, p in preparando:
+
+        sabor = p["pizza"]
+
+        if sabor not in grupos:
+            grupos[sabor] = []
+
+        grupos[sabor].append((i, p))
+
+    for sabor, itens in grupos.items():
+
+        mesas = []
+        horas = []
+        ids = []
+
+        for idx, p in itens:
+
+            mesas.append(str(p["mesa"]))
+
+            horas.append(
+                p["hora"].strftime("%H:%M")
+            )
+
+            ids.append(idx)
+
+        texto = (
+            f"🍕 {sabor}\n\n"
+            f"📦 {len(itens)} pedidos\n\n"
+            f"🪑 Mesas:\n"
+            f"{' • '.join(mesas)}\n\n"
+            f"🕒 {', '.join(horas)}"
         )
 
-        grupos={}
+        st.info(texto)
 
-        for i,p in preparando:
+        if st.button(
+            f"FINALIZAR {sabor}",
+            key=f"finalizar_{sabor}"
+        ):
 
-            sabor=p["pizza"]
+            for idx in ids:
+                st.session_state.pedidos[idx]["status"] = "PRONTO"
 
-            if sabor not in grupos:
+            st.rerun()
 
-                grupos[sabor]=[]
+with c2:
 
-            grupos[sabor].append(
-                (i,p)
-            )
+    st.markdown(
+        "<h3 style='color:black;'>✅ PRONTOS</h3>",
+        unsafe_allow_html=True
+    )
 
-        for sabor,itens in grupos.items():
+    finalizados = {}
 
-            mesas=[]
+    for i, p in prontos:
 
-            horas=[]
+        sabor = p["pizza"]
 
-            ids=[]
+        if sabor not in finalizados:
+            finalizados[sabor] = 0
 
-            for idx,p in itens:
+        finalizados[sabor] += 1
 
-                mesas.append(
-                    str(
-                        p["mesa"]
-                    )
-                )
+    for sabor, qtd in finalizados.items():
 
-                horas.append(
-
-                    p["hora"]
-                    .strftime(
-                        "%H:%M"
-                    )
-
-                )
-
-                ids.append(
-                    idx
-                )
-
-            st.info(
-
-f"""
-{sabor}
-
-📦 {len(itens)} pedidos
-
-🪑 Mesas:
-{' • '.join(mesas)}
-
-🕒 {' • '.join(horas)}
-"""
-
-            )
-
-            if st.button(
-
-                f"FINALIZAR {sabor}",
-
-                key=sabor
-
-            ):
-
-                for idx in ids:
-
-                    st.session_state.pedidos[
-                        idx
-                    ][
-                        "status"
-                    ]="PRONTO"
-
-                st.rerun()
-
-    with c2:
-
-        st.subheader(
-            "✅ PRONTOS"
+        st.success(
+            f"🍕 {sabor}\n\n✅ {qtd} concluídos"
         )
-
-        finalizados={}
-        for i,p in prontos:
-
-            sabor=p["pizza"]
-
-            if sabor not in finalizados:
-
-                finalizados[sabor]=0
-
-            finalizados[sabor]+=1
-
-        for sabor,qtd in finalizados.items():
-
-            st.success(
-
-f"""
-{sabor}
-
-✅ {qtd} concluídos
-"""
-
-            )
-
 # DASHBOARD
 
 elif menu=="📊 DASHBOARD":
