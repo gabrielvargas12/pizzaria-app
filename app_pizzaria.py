@@ -111,7 +111,14 @@ sabores=[
 "4 QUEIJOS",
 "MEXICANA"
 
-]
+# MACARRÃO
+
+"🍝 MACARRÃO BOLONHESA",
+"🍝 MACARRÃO 4 QUEIJOS",
+"🌶️ MACARRÃO PICANTE",
+"🍝 MACARRÃO MODA DA CASA"
+
+]    
 
 # PEDIDOS
 
@@ -147,7 +154,7 @@ if menu=="🍕 NOVO PEDIDO":
 
                 if st.button(
 
-                    f"🍕 {sabor}",
+                    f" {sabor}",
 
                     use_container_width=True
 
@@ -164,7 +171,7 @@ if menu=="🍕 NOVO PEDIDO":
 f"""
 Selecionada:
 
-🍕 {st.session_state.pizza_escolhida}
+ {st.session_state.pizza_escolhida}
 """
 
         )
