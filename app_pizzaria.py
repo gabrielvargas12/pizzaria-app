@@ -274,7 +274,10 @@ color:#666 !important;
 </style>
 """, unsafe_allow_html=True)
 
-/* LOGIN */
+st.markdown("""
+<style>
+
+/* INPUT LOGIN */
 
 .stTextInput input{
 
@@ -288,11 +291,8 @@ padding:10px;
 
 }
 
-.stTextInput label{
-
-color:white !important;
-
-}
+</style>
+""", unsafe_allow_html=True)
 
 /* SELECT */
 
