@@ -361,8 +361,6 @@ sabores=[
 
 # PEDIDOS
 
-# PEDIDOS
-
 if menu=="🍕 NOVO PEDIDO":
 
     st.title("🍕 Escolha o Pedido")
@@ -450,8 +448,6 @@ if menu=="🍕 NOVO PEDIDO":
             )
 
             st.rerun()
-# COZINHA
-
 # COZINHA
 
 elif menu == "👨‍🍳 COZINHA":
