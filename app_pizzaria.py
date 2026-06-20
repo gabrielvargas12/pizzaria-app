@@ -513,12 +513,13 @@ with c1:
 
  {sabor}
 
-{len(itens)} pedidos
-
-Mesas:
-{' • '.join(mesas)}
-
-🕒{' • '.join(horas)}
+texto = (
+f"🍕 {sabor}\n\n"
+f"📦 {len(itens)} pedidos\n\n"
+f"🪑 Mesas:\n"
+f"{' • '.join(mesas)}\n\n"
+f"🕒 {', '.join(horas)}"
+)
 """
 
 ```
