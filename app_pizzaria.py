@@ -539,7 +539,7 @@ f"""
 st.subheader("🪑 Mesas:")
 {' • '.join(mesas)}
 
-🕒 {' • '.join(horas)}
+f"🕒 {' • '.join(horas)}"
 """
 
             )
