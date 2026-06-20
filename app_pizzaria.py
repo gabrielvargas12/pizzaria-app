@@ -12,8 +12,8 @@ st.markdown("""
 <style>
 
 .stApp{
-background:#0f1117;
-color:white;
+background:#FFFFFF;
+color:black;
 }
 
 .block-container{
