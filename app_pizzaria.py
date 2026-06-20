@@ -253,7 +253,7 @@ elif menu=="👨‍🍳 COZINHA":
 f"""
 Mesa {p["mesa"]}
 
-🍕 {p["pizza"]}
+ {p["pizza"]}
 
 🕒 {p["hora"].strftime("%H:%M")}
 """
