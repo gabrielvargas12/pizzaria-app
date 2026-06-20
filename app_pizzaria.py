@@ -221,9 +221,11 @@ color:white !important;
 
 }
 
-/* ÍCONES */
+/* ---------- ICONES ---------- */
 
-svg{
+/* Mantém ícones internos */
+
+[data-testid="stSidebar"] svg{
 
 fill:white !important;
 
@@ -231,11 +233,47 @@ color:white !important;
 
 }
 
-/* MENU LATERAL ☰ */
+
+/* ---------- BOTAO MENU ☰ ---------- */
+
+/* Área do botão */
 
 button[kind="header"]{
 
 background:transparent !important;
+
+}
+
+/* Ícone fechado (fundo claro) */
+
+button[kind="header"] svg{
+
+fill:black !important;
+
+stroke:black !important;
+
+color:black !important;
+
+}
+
+/* Ícone quando abrir sidebar escura */
+
+[data-testid="stSidebar"][aria-expanded="true"] ~ div 
+button[kind="header"] svg{
+
+fill:white !important;
+
+stroke:white !important;
+
+color:white !important;
+
+}
+
+/* SABORES / TEXTOS DOS BOTOES */
+
+div.stButton button{
+
+color:white !important;
 
 }
 
