@@ -9,7 +9,8 @@ st.set_page_config(
 )
 
 st.markdown("""
-<style>
+
+""", unsafe_allow_html=True)
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
