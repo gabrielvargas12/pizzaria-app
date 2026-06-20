@@ -73,7 +73,7 @@ elif menu=='👨‍🍳 COZINHA':
     st.subheader('Preparando')
     for sabor,itens in grupos.items():
         mesas=' • '.join(str(x[1]['mesa']) for x in itens)
-        st.info(f' {sabor}\n\n📦 {len(itens)} pedidos\n🪑 Mesas: {mesas}')
+        st.info(f' {sabor}\n\n {len(itens)} pedidos\n🪑 Mesas: {mesas}')
         if st.button(f'FINALIZAR {sabor}'):
             for idx,_ in itens:
                 st.session_state.pedidos[idx]['status']='PRONTO'
