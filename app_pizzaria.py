@@ -80,19 +80,32 @@ elif menu=='👨‍🍳 COZINHA':
     grupos={}
     for i,p in enumerate(st.session_state.pedidos):
         grupos.setdefault(p['pizza'],[]).append((i,p)) if p['status']=='PREPARANDO' else None
-    for sabor,itens in grupos.items():
-        mesas=' • '.join(str(x[1]['mesa']) for x in itens)
-     texto = (
-    f"{sabor}\n\n"
-    f"📦 {len(itens)} pedidos\n\n"
-    f"🪑 Mesas: {mesas}"
-)
+for sabor, itens in grupos.items():
 
-st.info(texto)
-        if st.button(f'FINALIZAR {sabor}'):
-            for idx,_ in itens:
-                st.session_state.pedidos[idx]['status']='PRONTO'
-            st.rerun()
+    mesas = " • ".join(
+        str(x[1]["mesa"])
+        for x in itens
+    )
+
+    texto = (
+        f"{sabor}\n\n"
+        f"📦 {len(itens)} pedidos\n\n"
+        f"🪑 Mesas: {mesas}"
+    )
+
+    st.info(texto)
+
+    if st.button(
+        f"FINALIZAR {sabor}"
+    ):
+
+        for idx, _ in itens:
+
+            st.session_state.pedidos[idx][
+                "status"
+            ] = "PRONTO"
+
+        st.rerun()
 
 else:
     st.title('📊 Dashboard')
