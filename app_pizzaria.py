@@ -252,7 +252,7 @@ fill:white !important;
 
 stroke:black !important;
 
-color:black !important;
+color:white !important;
 
 }
 
