@@ -480,10 +480,7 @@ elif menu=="👨‍🍳 COZINHA":
 
     with c1:
 
-   
-"<h3 style='color:black;'>🔥 PREPARANDO</h3>",
-unsafe_allow_html=True
-)
+st.subheader("🔥 PREPARANDO")
 
         grupos={}
 
@@ -563,11 +560,7 @@ f"""
 
     with c2:
 
-
-"<h3 style='color:black;'>✅ PRONTOS</h3>",
-unsafe_allow_html=True
-)
-
+st.subheader("✅ PRONTOS")
         finalizados={}
 
         for i,p in prontos:
