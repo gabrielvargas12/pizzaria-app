@@ -454,94 +454,248 @@ f"""
 
 # COZINHA
 
-elif menu == "👨‍🍳 COZINHA":
+elif menu=="👨‍🍳 COZINHA":
 
-```
-st.title("👨‍🍳 Cozinha")
+    st.title(
+        "👨‍🍳 Cozinha"
+    )
 
-pedidos = st.session_state.pedidos
+    pedidos=st.session_state.pedidos
 
-preparando = [
-    (i, p)
-    for i, p in enumerate(pedidos)
-    if p["status"] == "PREPARANDO"
-]
+    preparando=[
+        (i,p)
+        for i,p in enumerate(
+            pedidos
+        )
+        if p["status"]=="PREPARANDO"
+    ]
 
-prontos = [
-    (i, p)
-    for i, p in enumerate(pedidos)
-    if p["status"] == "PRONTO"
-]
+    prontos=[
+        (i,p)
+        for i,p in enumerate(
+            pedidos
+        )
+        if p["status"]=="PRONTO"
+    ]
 
-c1, c2 = st.columns(2)
+    c1,c2=st.columns(2)
 
-with c1:
+    with c1:
 
-    st.subheader("🔥 PREPARANDO")
+        st.subheader(
+            "🔥 PREPARANDO"
+        )
 
-    grupos = {}
+        grupos={}
 
-    for i, p in preparando:
+        for i,p in preparando:
 
-        sabor = p["pizza"]
+            sabor=p["pizza"]
 
-        if sabor not in grupos:
-            grupos[sabor] = []
+            if sabor not in grupos:
 
-        grupos[sabor].append((i, p))
+                grupos[sabor]=[]
 
-    for sabor, itens in grupos.items():
-
-        mesas = []
-        horas = []
-        ids = []
-
-        for idx, p in itens:
-
-            mesas.append(
-                str(p["mesa"])
+            grupos[sabor].append(
+                (i,p)
             )
 
-            horas.append(
-                p["hora"].strftime("%H:%M")
-            )
+        for sabor,itens in grupos.items():
 
-            ids.append(idx)
+            mesas=[]
 
-        texto = f"""
-```
+            horas=[]
 
- {sabor}
+            ids=[]
 
-F"📦 {len(itens)} pedidos
-{len(itens)} pedidos
+            for idx,p in itens:
 
-f'🪑 Mesas:
-Mesas:
+                mesas.append(
+                    str(
+                        p["mesa"]
+                    )
+                )
+
+                horas.append(
+
+                    p["hora"]
+                    .strftime(
+                        "%H:%M"
+                    )
+
+                )
+
+                ids.append(
+                    idx
+                )
+
+            st.info(
+
+f"""
+{sabor}
+
+ {len(itens)} pedidos
+
+st.subheader("🪑 Mesas:")
 {' • '.join(mesas)}
 
-🕒 {' • '.join(horas)}
-🕒{' • '.join(horas)}
+f"🕒 {' • '.join(horas)}"
 """
 
-```
-        st.info(texto)
+            )
 
-        if st.button(
-            f"FINALIZAR {sabor}",
-            key=f"finalizar_{sabor}"
-        ):
+            if st.button(
 
-            for idx in ids:
+                f"FINALIZAR {sabor}",
 
-                st.session_state.pedidos[idx][
+                key=sabor
+
+            ):
+
+                for idx in ids:
+
+                    st.session_state.pedidos[
+                        idx
+                    ][
+                        "status"
+                    ]="PRONTO"
+
+                st.rerun()
+
+    with c2:
+
+        st.subheader(
+            "✅ PRONTOS"
+        )
+
+        finalizados={}
+
+        for i,p in prontos:
+
+            sabor=p["pizza"]
+
+            if sabor not in finalizados:
+
+                finalizados[sabor]=0
+
+            finalizados[sabor]+=1
+
+        for sabor,qtd in finalizados.items():
+
+            st.success(
+
+f"""
+{sabor}
+
+f"✅ {qtd} concluídos"
+"""
+
+            )
+)
+# DASHBOARD
+
+elif menu=="📊 DASHBOARD":
+
+    st.title(
+        "📊 Dashboard"
+    )
+
+    if len(
+        st.session_state.pedidos
+    ):
+
+        df=pd.DataFrame(
+            st.session_state.pedidos
+        )
+
+        c1,c2,c3=(
+            st.columns(3)
+        )
+
+        c1.metric(
+            "Pedidos",
+            len(df)
+        )
+
+        c2.metric(
+
+            "Prontos",
+
+            (
+                df[
                     "status"
-                ] = "PRONTO"
+                ]
+                ==
+                "PRONTO"
+            ).sum()
 
-            st.rerun()
+        )
 
-with c2:
+        hora=(
+            df["hora"]
+            .dt.hour
+            .mode()[0]
+        )
 
-    st.subheader("✅ PRONTOS")
+        c3.metric(
+            "Hora Pico",
+            f"{hora}:00"
+        )
 
-    finalizados = {}
+        st.subheader(
+            " Mais Pedidas"
+        )
+
+        top=(
+
+            df
+
+            .groupby(
+                "pizza"
+            )
+
+            .size()
+
+            .reset_index(
+                name="pedidos"
+            )
+
+        )
+
+        grafico=px.bar(
+
+            top,
+
+            x="pizza",
+
+            y="pedidos"
+
+        )
+
+        st.plotly_chart(
+
+            grafico,
+
+            use_container_width=True
+
+        )
+
+        st.subheader(
+            "Histórico"
+        )
+
+        st.dataframe(
+            df
+        )
+
+    else:
+
+        st.info(
+            "Sem pedidos"
+        )
+
+if st.sidebar.button(
+    "Sair"
+):
+
+    st.session_state.logado=False
