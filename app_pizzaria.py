@@ -300,8 +300,6 @@ padding:10px;
 
 background:#23262E !important;
 
-border-radius:10px;
-
 }
 
 [data-baseweb="select"] span{
