@@ -13,28 +13,23 @@ st.markdown("""
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-/* ---------- BASE ---------- */
+/* BASE */
 
 html,
 body,
 [class*="css"]{
-
 font-family:'Poppins',sans-serif;
-
 }
 
-/* ---------- FUNDO ---------- */
+/* FUNDO */
 
 .stApp{
-
 background-image:url(
 "https://images.unsplash.com/photo-1513104890138-7c749659a591"
 );
-
 background-size:cover;
 background-position:center;
 background-attachment:fixed;
-
 }
 
 /* CAMADA ESCURA */
@@ -61,7 +56,7 @@ z-index:-1;
 
 }
 
-/* ---------- TITULOS ---------- */
+/* TITULO PRINCIPAL */
 
 h1{
 
@@ -79,6 +74,8 @@ text-shadow:
 
 }
 
+/* SUBTITULOS */
+
 h2,
 h3,
 h4,
@@ -89,7 +86,7 @@ color:white !important;
 
 }
 
-/* ---------- TEXTO ---------- */
+/* TEXTOS */
 
 p,
 span,
@@ -101,7 +98,7 @@ color:white !important;
 
 }
 
-/* ---------- SIDEBAR ---------- */
+/* SIDEBAR */
 
 [data-testid="stSidebar"]{
 
@@ -115,7 +112,7 @@ color:white !important;
 
 }
 
-/* ---------- LOGIN ---------- */
+/* LOGIN */
 
 .stTextInput input{
 
@@ -129,15 +126,13 @@ padding:10px;
 
 }
 
-/* LABEL LOGIN */
-
 .stTextInput label{
 
 color:white !important;
 
 }
 
-/* ---------- SELECT ---------- */
+/* SELECT */
 
 [data-baseweb="select"]{
 
@@ -153,8 +148,6 @@ color:white !important;
 
 }
 
-/* MENU ABERTO */
-
 [role="listbox"]{
 
 background:white !important;
@@ -167,7 +160,7 @@ color:black !important;
 
 }
 
-/* ---------- BOTOES ---------- */
+/* BOTÕES */
 
 div.stButton > button{
 
@@ -196,42 +189,8 @@ background:#D32F2F;
 transform:translateY(-2px);
 
 }
-/* ---------- BOTAO MENU LATERAL ---------- */
 
-/* Botão */
-
-[data-testid="stSidebarCollapsedControl"]{
-
-background:transparent !important;
-
-}
-
-/* Ícone */
-
-[data-testid="stSidebarCollapsedControl"] svg{
-
-fill:black !important;
-
-color:black !important;
-
-stroke:black !important;
-
-}
-
-/* Quando estiver sobre sidebar escura */
-
-[data-testid="stSidebar"] 
-[data-testid="stSidebarCollapsedControl"] svg{
-
-fill:white !important;
-
-color:white !important;
-
-stroke:white !important;
-
-}
-
-/* ---------- DASHBOARD ---------- */
+/* DASHBOARD */
 
 [data-testid="stMetricValue"],
 [data-testid="stMetricLabel"]{
@@ -240,7 +199,7 @@ color:white !important;
 
 }
 
-/* ---------- TABELAS ---------- */
+/* TABELAS */
 
 table,
 thead,
@@ -254,7 +213,7 @@ background:transparent !important;
 
 }
 
-/* ---------- ALERTAS ---------- */
+/* ALERTAS */
 
 [data-testid="stAlertContainer"]{
 
@@ -262,7 +221,7 @@ color:white !important;
 
 }
 
-/* ---------- ICONES ---------- */
+/* ÍCONES */
 
 svg{
 
@@ -272,27 +231,7 @@ color:white !important;
 
 }
 
-/* ---------- CAMPOS CLAROS ---------- */
-
-input::placeholder{
-
-color:#666 !important;
-
-}
-
-/* ---------- BOTAO ABRIR MENU ---------- */
-
-/* Ícone */
-
-button[kind="header"] svg{
-
-fill:white !important;
-
-color:white !important;
-
-}
-
-/* Quando passar em área clara */
+/* MENU LATERAL ☰ */
 
 button[kind="header"]{
 
@@ -300,29 +239,35 @@ background:transparent !important;
 
 }
 
-/* Ajuste automático */
-
-@media (prefers-color-scheme: light){
+/* COR PADRÃO */
 
 button[kind="header"] svg{
 
 fill:black !important;
 
+stroke:black !important;
+
 color:black !important;
 
 }
 
-}
+/* QUANDO MENU ESTIVER ESCURO */
 
-@media (prefers-color-scheme: dark){
-
-button[kind="header"] svg{
+[data-testid="stSidebar"] button[kind="header"] svg{
 
 fill:white !important;
+
+stroke:white !important;
 
 color:white !important;
 
 }
+
+/* PLACEHOLDER */
+
+input::placeholder{
+
+color:#666 !important;
 
 }
 
