@@ -281,7 +281,7 @@ color:white !important;
 
 button[kind="header"] svg{
 
-fill:black !important;
+fill:white !important;
 
 stroke:black !important;
 
