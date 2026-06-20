@@ -513,10 +513,10 @@ with c1:
 
  {sabor}
 
-📦 {len(itens)} pedidos
+F"📦 {len(itens)} pedidos
 {len(itens)} pedidos
 
-🪑 Mesas:
+f'🪑 Mesas:
 Mesas:
 {' • '.join(mesas)}
 
