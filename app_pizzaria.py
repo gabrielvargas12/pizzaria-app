@@ -353,7 +353,10 @@ sabores=[
 "FRANGO CATUPIRY",
 "4 QUEIJOS",
 "MEXICANA"
-
+"MACARÇÃO 4 QUEIJOS "
+"MACARÃO PICANTE"
+"MACARÃO ALHO E ALEO COM BACON"
+"MACARÃO ALHO E OLEO COM BROCOLIS"
 ]
 
 # PEDIDOS
@@ -463,28 +466,23 @@ elif menu=="👨‍🍳 COZINHA":
         "👨‍🍳 Cozinha"
     )
 
-    preparar=[]
-    pronto=[]
+    pedidos=st.session_state.pedidos
 
-    for i,p in enumerate(
-        st.session_state.pedidos
-    ):
+    preparando=[
+        (i,p)
+        for i,p in enumerate(
+            pedidos
+        )
+        if p["status"]=="PREPARANDO"
+    ]
 
-        if (
-            p["status"]
-            ==
-            "PREPARANDO"
-        ):
-
-            preparar.append(
-                (i,p)
-            )
-
-        else:
-
-            pronto.append(
-                (i,p)
-            )
+    prontos=[
+        (i,p)
+        for i,p in enumerate(
+            pedidos
+        )
+        if p["status"]=="PRONTO"
+    ]
 
     c1,c2=st.columns(2)
 
@@ -494,27 +492,79 @@ elif menu=="👨‍🍳 COZINHA":
             "🔥 PREPARANDO"
         )
 
-        for i,p in preparar:
+        grupos={}
+
+        for i,p in preparando:
+
+            sabor=p["pizza"]
+
+            if sabor not in grupos:
+
+                grupos[sabor]=[]
+
+            grupos[sabor].append(
+                (i,p)
+            )
+
+        for sabor,itens in grupos.items():
+
+            mesas=[]
+
+            horas=[]
+
+            ids=[]
+
+            for idx,p in itens:
+
+                mesas.append(
+                    str(
+                        p["mesa"]
+                    )
+                )
+
+                horas.append(
+
+                    p["hora"]
+                    .strftime(
+                        "%H:%M"
+                    )
+
+                )
+
+                ids.append(
+                    idx
+                )
 
             st.info(
 
 f"""
-Mesa {p["mesa"]}
+{sabor}
 
-🍕 {p["pizza"]}
+📦 {len(itens)} pedidos
 
-🕒 {p["hora"].strftime("%H:%M")}
+🪑 Mesas:
+{' • '.join(mesas)}
+
+🕒 {' • '.join(horas)}
 """
 
             )
 
             if st.button(
-                f"FINALIZAR {i}"
+
+                f"FINALIZAR {sabor}",
+
+                key=sabor
+
             ):
 
-                st.session_state.pedidos[i][
-                    "status"
-                ]="PRONTO"
+                for idx in ids:
+
+                    st.session_state.pedidos[
+                        idx
+                    ][
+                        "status"
+                    ]="PRONTO"
 
                 st.rerun()
 
@@ -524,14 +574,26 @@ Mesa {p["mesa"]}
             "✅ PRONTOS"
         )
 
-        for i,p in pronto:
+        finalizados={}
+
+        for i,p in prontos:
+
+            sabor=p["pizza"]
+
+            if sabor not in finalizados:
+
+                finalizados[sabor]=0
+
+            finalizados[sabor]+=1
+
+        for sabor,qtd in finalizados.items():
 
             st.success(
 
 f"""
-Mesa {p["mesa"]}
+{sabor}
 
-🍕 {p["pizza"]}
+✅ {qtd} concluídos
 """
 
             )
