@@ -559,12 +559,14 @@ with c2:
 ```
 
  {sabor}
+for sabor, qtd in finalizados.items():
 
-f"✅ {qtd} concluídos"
-"""
+texto = (
+    f"🍕 {sabor}\n\n"
+    f"✅ {qtd} concluídos"
+)
 
-```
-        st.success(texto)
+st.success(texto)
 ```
 
 # DASHBOARD
