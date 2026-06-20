@@ -7,7 +7,6 @@ st.set_page_config(
     page_title="Controle de Pedidos",
     layout="wide"
 )
-
 st.markdown("""
 <style>
 
@@ -273,8 +272,6 @@ color:#666 !important;
 
 </style>
 """, unsafe_allow_html=True)
-# LOGIN
-
 USUARIO="gilvan"
 SENHA="gilvan2008"
 
