@@ -454,251 +454,177 @@ f"""
 
 # COZINHA
 
-elif menu=="👨‍🍳 COZINHA":
+elif menu == "👨‍🍳 COZINHA":
 
-    st.title(
-        "👨‍🍳 Cozinha"
-    )
+```
+st.title("👨‍🍳 Cozinha")
 
-    pedidos=st.session_state.pedidos
+pedidos = st.session_state.pedidos
 
-    preparando=[
-        (i,p)
-        for i,p in enumerate(
-            pedidos
-        )
-        if p["status"]=="PREPARANDO"
-    ]
+preparando = [
+    (i, p)
+    for i, p in enumerate(pedidos)
+    if p["status"] == "PREPARANDO"
+]
 
-    prontos=[
-        (i,p)
-        for i,p in enumerate(
-            pedidos
-        )
-        if p["status"]=="PRONTO"
-    ]
+prontos = [
+    (i, p)
+    for i, p in enumerate(pedidos)
+    if p["status"] == "PRONTO"
+]
 
-    c1,c2=st.columns(2)
+c1, c2 = st.columns(2)
 
-    with c1:
+with c1:
 
-        st.subheader(
-            "🔥 PREPARANDO"
-        )
+    st.subheader("🔥 PREPARANDO")
 
-        grupos={}
+    grupos = {}
 
-        for i,p in preparando:
+    for i, p in preparando:
 
-            sabor=p["pizza"]
+        sabor = p["pizza"]
 
-            if sabor not in grupos:
+        if sabor not in grupos:
+            grupos[sabor] = []
 
-                grupos[sabor]=[]
+        grupos[sabor].append((i, p))
 
-            grupos[sabor].append(
-                (i,p)
+    for sabor, itens in grupos.items():
+
+        mesas = []
+        horas = []
+        ids = []
+
+        for idx, p in itens:
+
+            mesas.append(
+                str(p["mesa"])
             )
 
-        for sabor,itens in grupos.items():
+            horas.append(
+                p["hora"].strftime("%H:%M")
+            )
 
-            mesas=[]
+            ids.append(idx)
 
-            horas=[]
+        texto = f"""
+```
 
-            ids=[]
+🍕 {sabor}
 
-            for idx,p in itens:
+📦 {len(itens)} pedidos
 
-                mesas.append(
-                    str(
-                        p["mesa"]
-                    )
-                )
-
-                horas.append(
-
-                    p["hora"]
-                    .strftime(
-                        "%H:%M"
-                    )
-
-                )
-
-                ids.append(
-                    idx
-                )
-
-            st.info(
-
-f"""
-{sabor}
-
- {len(itens)} pedidos
-
-st.subheader("🪑 Mesas:")
+🪑 Mesas:
 {' • '.join(mesas)}
 
-f"🕒 {' • '.join(horas)}"
+🕒 {' • '.join(horas)}
 """
 
-            )
+```
+        st.info(texto)
 
-            if st.button(
+        if st.button(
+            f"FINALIZAR {sabor}",
+            key=f"finalizar_{sabor}"
+        ):
 
-                f"FINALIZAR {sabor}",
+            for idx in ids:
 
-                key=sabor
+                st.session_state.pedidos[idx][
+                    "status"
+                ] = "PRONTO"
 
-            ):
+            st.rerun()
 
-                for idx in ids:
+with c2:
 
-                    st.session_state.pedidos[
-                        idx
-                    ][
-                        "status"
-                    ]="PRONTO"
+    st.subheader("✅ PRONTOS")
 
-                st.rerun()
+    finalizados = {}
 
-    with c2:
+    for i, p in prontos:
 
-        st.subheader(
-            "✅ PRONTOS"
-        )
+        sabor = p["pizza"]
 
-        finalizados={}
+        if sabor not in finalizados:
+            finalizados[sabor] = 0
 
-        for i,p in prontos:
+        finalizados[sabor] += 1
 
-            sabor=p["pizza"]
+    for sabor, qtd in finalizados.items():
 
-            if sabor not in finalizados:
+        texto = f"""
+```
 
-                finalizados[sabor]=0
+🍕 {sabor}
 
-            finalizados[sabor]+=1
-
-        for sabor,qtd in finalizados.items():
-
-            st.success(
-
-
-f"""
-{sabor}
-
-f"✅ {qtd} concluídos"
-)
+✅ {qtd} concluídos
 """
-)
+
+```
+        st.success(texto)
+```
 
 # DASHBOARD
 
-elif menu=="📊 DASHBOARD":
+elif menu == "📊 DASHBOARD":
 
-    st.title(
-        "📊 Dashboard"
+```
+st.title("📊 Dashboard")
+
+if len(st.session_state.pedidos):
+
+    df = pd.DataFrame(
+        st.session_state.pedidos
     )
 
-    if len(
-        st.session_state.pedidos
-    ):
+    c1, c2, c3 = st.columns(3)
 
-        df=pd.DataFrame(
-            st.session_state.pedidos
+    c1.metric(
+        "Pedidos",
+        len(df)
+    )
+
+    c2.metric(
+
+        "Prontos",
+
+        len(
+            df[
+                df["status"] == "PRONTO"
+            ]
         )
+    )
 
-        c1,c2,c3=(
-            st.columns(3)
+    c3.metric(
+
+        "Preparando",
+
+        len(
+            df[
+                df["status"] == "PREPARANDO"
+            ]
         )
+    )
 
-        c1.metric(
-            "Pedidos",
-            len(df)
-        )
+    pizza = (
+        df["pizza"]
+        .value_counts()
+        .head(10)
+    )
 
-        c2.metric(
+    st.subheader(
+        "🍕 Mais Pedidas"
+    )
 
-            "Prontos",
+    st.bar_chart(
+        pizza
+    )
 
-            (
-                df[
-                    "status"
-                ]
-                ==
-                "PRONTO"
-            ).sum()
+else:
 
-        )
-
-        hora=(
-            df["hora"]
-            .dt.hour
-            .mode()[0]
-        )
-
-        c3.metric(
-            "Hora Pico",
-            f"{hora}:00"
-        )
-
-        st.subheader(
-            " Mais Pedidas"
-        )
-
-        top=(
-
-            df
-
-            .groupby(
-                "pizza"
-            )
-
-            .size()
-
-            .reset_index(
-                name="pedidos"
-            )
-
-        )
-
-        grafico=px.bar(
-
-            top,
-
-            x="pizza",
-
-            y="pedidos"
-
-        )
-
-        st.plotly_chart(
-
-            grafico,
-
-            use_container_width=True
-
-        )
-
-        st.subheader(
-            "Histórico"
-        )
-
-        st.dataframe(
-            df
-        )
-
-    else:
-
-        st.info(
-            "Sem pedidos"
-        )
-
-if st.sidebar.button(
-    "Sair"
-):
-
-    st.session_state.logado=False
-
-    st.rerun()
+    st.info(
+        "Nenhum pedido ainda"
+    )
+```
