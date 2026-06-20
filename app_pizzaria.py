@@ -480,7 +480,7 @@ elif menu=="👨‍🍳 COZINHA":
 
     with c1:
 
-    st.markdown(
+   
 "<h3 style='color:black;'>🔥 PREPARANDO</h3>",
 unsafe_allow_html=True
 )
@@ -563,7 +563,7 @@ f"""
 
     with c2:
 
-  st.markdown(
+
 "<h3 style='color:black;'>✅ PRONTOS</h3>",
 unsafe_allow_html=True
 )
