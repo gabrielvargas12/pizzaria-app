@@ -352,50 +352,55 @@ sabores=[
 "PORTUGUESA",
 "FRANGO CATUPIRY",
 "4 QUEIJOS",
-"MEXICANA"
-"MACARÇÃO 4 QUEIJOS "
-"MACARÃO PICANTE"
-"MACARÃO ALHO E ALEO COM BACON"
-"MACARÃO ALHO E OLEO COM BROCOLIS"
+"MEXICANA",
+"MACARÇÃO 4 QUEIJOS ",
+"MACARÃO PICANTE",
+"MACARÃO ALHO E ALEO COM BACON",
+"MACARÃO ALHO E OLEO COM BROCOLIS",
 ]
+
+# PEDIDOS
 
 # PEDIDOS
 
 if menu=="🍕 NOVO PEDIDO":
 
-    st.title(
-        "🍕 Escolha a Pizza"
-    )
+    st.title("🍕 Escolha o Pedido")
 
-    colunas=3
+    if "pizza_escolhida" not in st.session_state:
+        st.session_state.pizza_escolhida=None
 
-    for i in range(
-        0,
-        len(sabores),
-        colunas
-    ):
+    colunas=4
 
-        cols=st.columns(
+    linhas=[
+        sabores[i:i+colunas]
+        for i in range(
+            0,
+            len(sabores),
             colunas
         )
+    ]
 
-        grupo=sabores[
-            i:
-            i+colunas
-        ]
+    for linha in linhas:
 
-        for coluna,sabor in zip(
+        cols=st.columns(
+            len(linha)
+        )
+
+        for col,sabor in zip(
             cols,
-            grupo
+            linha
         ):
 
-            with coluna:
+            with col:
 
                 if st.button(
 
-                    f"🍕 {sabor}",
+                    sabor,
 
-                    use_container_width=True
+                    use_container_width=True,
+
+                    key=sabor
 
                 ):
 
@@ -406,32 +411,20 @@ if menu=="🍕 NOVO PEDIDO":
         st.divider()
 
         st.success(
-
-f"""
-Selecionada:
-
-🍕 {st.session_state.pizza_escolhida}
-"""
-
+            f"Selecionado: {st.session_state.pizza_escolhida}"
         )
 
         mesa=st.selectbox(
-
             "Mesa",
-
             range(
                 1,
                 31
             )
-
         )
 
         if st.button(
-
             "Enviar para Cozinha",
-
             use_container_width=True
-
         ):
 
             st.session_state.pedidos.append({
@@ -457,7 +450,6 @@ Selecionada:
             )
 
             st.rerun()
-
 # COZINHA
 
 elif menu=="👨‍🍳 COZINHA":
