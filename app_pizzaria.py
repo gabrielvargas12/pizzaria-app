@@ -587,7 +587,7 @@ f"🕒 {' • '.join(horas)}"
 f"""
 {sabor}
 
-✅ {qtd} concluídos
+f"✅ {qtd} concluídos"
 """
 
             )
