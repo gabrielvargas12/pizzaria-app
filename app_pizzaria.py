@@ -28,10 +28,16 @@ SENHA='gilvan2008'
 for k,v in [('logado',False),('pedidos',[]),('selecao',None)]:
     if k not in st.session_state:
         st.session_state[k]=v
+hora = datetime.now(
+    ZoneInfo("America/Sao_Paulo")
+).strftime("%H:%M:%S")
 
-hora=datetime.now(ZoneInfo('America/Sao_Paulo')).strftime('%H:%M:%S')
-st.sidebar.markdown(f'## 🕒 Brasília
-### {hora}')
+st.sidebar.markdown(
+    f"""
+## 🕒 Brasília
+### {hora}
+"""
+)
 
 sabores=[
 ' NAPOLITANA',' CAMARÃO',' CAIPIRA',' MINEIRA',' MODA DA CASA',
