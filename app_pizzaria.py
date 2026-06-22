@@ -315,8 +315,6 @@ try:
                 format_func=lambda x: f"Mesa {x}"
             )
             
-            notes = st.text_area("📝 Observações", height=100, value="")
-            
             st.markdown("---")
             st.subheader("Adicionar Itens")
             
@@ -333,7 +331,7 @@ try:
                                            if item and item.get('category') == category]
                         
                         if items_in_category:
-                            item_names = {item['id']: f"{item.get('name', 'Sem nome')} - {format_currency(item.get('price', 0))}" 
+                            item_names = {item['id']: item.get('name', 'Sem nome')
                                          for item in items_in_category if item and 'id' in item}
                             
                             if item_names:
@@ -341,7 +339,6 @@ try:
                                                                format_func=lambda x: item_names.get(x, ""))
                                 
                                 quantity = st.number_input("Quantidade", min_value=1, value=1)
-                                item_notes = st.text_input("Observações do item (ex: sem cebola)", value="")
                                 
                                 if st.button("➕ Adicionar ao Pedido", type="primary", use_container_width=True):
                                     try:
@@ -352,7 +349,7 @@ try:
                                                 st.session_state.current_order = db.create_order(
                                                     int(table_number), 
                                                     int(st.session_state.user['id']), 
-                                                    notes.strip()
+                                                    ""
                                                 )
                                         
                                         if st.session_state.current_order:
@@ -360,7 +357,7 @@ try:
                                                 st.session_state.current_order, 
                                                 selected_item_id, 
                                                 int(quantity), 
-                                                item_notes.strip()
+                                                ""
                                             )
                                             st.success("✅ Item adicionado!")
                                             st.rerun()
@@ -389,19 +386,14 @@ try:
                         st.write(f"**Mesa {table_number}** | Total: {item_count} itens")
                         
                         for idx, item in enumerate(summary.get('items', [])):
-                            col_a, col_b, col_c = st.columns([2, 1, 1])
+                            col_a, col_b = st.columns([3, 1])
                             with col_a:
                                 st.write(f"🍕 {item.get('menu_name', 'Sem nome')}")
-                                if item.get('notes'):
-                                    st.caption(f"📝 {item['notes']}")
                             with col_b:
                                 st.write(f"x{item.get('quantity', 0)}")
-                            with col_c:
-                                price = float(item.get('price', 0)) * int(item.get('quantity', 0))
-                                st.write(f"{format_currency(price)}")
                         
                         st.markdown("---")
-                        st.metric("💰 Total", format_currency(summary.get('total', 0)))
+                        st.write(f"**Total de itens:** {item_count}")
                         
                         col_confirm, col_cancel = st.columns(2)
                         
@@ -470,11 +462,9 @@ try:
                                 with col2:
                                     summary = create_order_summary(order_id)
                                     st.write(f"**Itens:** {summary.get('item_count', 0)}")
-                                    st.write(f"**Total:** {format_currency(summary.get('total', 0))}")
                                 
                                 with col3:
-                                    if order.get('notes'):
-                                        st.write(f"**Observações:** {order['notes']}")
+                                    st.write("")
                                 
                                 st.markdown("---")
                                 
@@ -487,11 +477,7 @@ try:
                                             if item and isinstance(item, dict):
                                                 menu_name = item.get('menu_name', 'Sem nome')
                                                 qty = int(item.get('quantity', 0))
-                                                price = float(item.get('price', 0))
-                                                total_price = price * qty
-                                                st.write(f"- {menu_name} x{qty} ({format_currency(total_price)})")
-                                                if item.get('notes'):
-                                                    st.caption(f"  📝 {item['notes']}")
+                                                st.write(f"- {menu_name} x{qty}")
                                     else:
                                         st.info("Nenhum item neste pedido")
                                 except Exception as e:
@@ -586,8 +572,6 @@ try:
                                                     menu_name = item.get('menu_name', 'Sem nome')
                                                     qty = int(item.get('quantity', 0))
                                                     st.write(f"🍕 **{menu_name}** x{qty}")
-                                                    if item.get('notes'):
-                                                        st.caption(f"📝 {item['notes']}")
                                         else:
                                             st.info("Sem itens")
                                     except Exception as e:
@@ -660,15 +644,13 @@ try:
                                         if item and isinstance(item, dict):
                                             menu_name = item.get('menu_name', 'Sem nome')
                                             qty = int(item.get('quantity', 0))
-                                            price = float(item.get('price', 0))
-                                            total_price = price * qty
-                                            st.write(f"- {menu_name} x{qty}: {format_currency(total_price)}")
+                                            st.write(f"- {menu_name} x{qty}")
                                     
                                     st.markdown("---")
                                     col1, col2 = st.columns(2)
                                     
                                     with col1:
-                                        st.metric("💰 Total", format_currency(summary.get('total', 0)))
+                                        st.write(f"**Itens:** {summary.get('item_count', 0)}")
                                     
                                     with col2:
                                         payment_method = st.selectbox(
